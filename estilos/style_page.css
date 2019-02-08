@@ -1,0 +1,45 @@
+.logo_tgif {
+
+    width: 150px;
+}
+
+footer {
+    text-align: center;
+    background-color: #80808021;
+}
+
+thead {
+    font-weight: bold;
+
+}
+
+.contenedor {
+
+    display: flex;
+}
+
+.home_image {
+    
+    height: 300px;
+    margin-right: 10px;
+}
+
+.about{
+    
+        margin: 17px;
+}
+
+.read_more{
+    font-size: 14px;
+    color: #259fce
+}
+
+
+
+
+
+.filters {
+    display: flex;
+        display: flex;
+    justify-content: space-between;
+}
