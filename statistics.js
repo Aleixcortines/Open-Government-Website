@@ -116,7 +116,7 @@ function namesMissVotespct(party) {
 
     for (var i = 0; i < TotalMembersParty.length; i++) {
 
-        ArrTotalMissVotes.push(TotalMembersParty[i].missed_votes_pct + " " + membersPerParty[i].first_name);
+        ArrTotalMissVotes.push(TotalMembersParty[i].missed_votes_pct + " " + membersPerParty[i].first_name + " " + (TotalMembersParty[i].middle_name || "") + TotalMembersParty[i].last_name);
 
 
     }
@@ -125,11 +125,44 @@ function namesMissVotespct(party) {
 
     var tenPctMissed = totalMissVtSort.slice(0, 10);
 
+    var string = tenPctMissed.toString();
 
-    return tenPctMissed;
+    var res = string.match(/isNaN/g);
+
+
+
+
+    //    var string2 = string.replace(/,/g," ");
+    //    
+    //    var arr= string2.split(" ");
+    //    
+    //    for( var i =0; i<arr.length;i++){
+    //        
+    //        if (!isNaN(arr[i])){
+    //            
+    //            delete arr[i];
+    //        }
+    //    }
+
+
+
+
+
+    return res;
 
 }
 
+
+//var numeros="0123456789";
+//
+//function tiene_numeros(texto){
+//   for(i=0; i<texto.length; i++){
+//      if (string.indexOf(texto.charAt(i),0)!=-1){
+//         return 1;
+//      }
+//   }
+//  
+//}
 
 
 // var names = TotalMembersParty[i].first_name + " " + (TotalMembersParty[i].middle_name || "") + " " + TotalMembersParty[i].last_name;
