@@ -2,23 +2,22 @@
 
 var statistics = {
 
-    'Number republican': totalPerParty("R"),
+    'numberRepublican': totalPerParty("R"),
 
-    'Number democrat': totalPerParty("D"),
+    'numberDemocrat': totalPerParty("D"),
 
-    'Number independent': totalPerParty("I"),
+    'numberIndependent': totalPerParty("I"),
 
-    'Percent republican': averageParty("R"),
+    'percentRepublican': averageParty("R"),
 
-    'Percent democrat': averageParty("D"),
+    'percentDemocrat': averageParty("D"),
 
-    'Percent independent': averageParty("I"),
+    'percentIndependent': averageParty("I"),
 
-    'Missed votes pct republican': namesMissVotespct("R"),
+    'bottomAttendance': bottomAttend(),
 
-    'Missed votes pct democrat': namesMissVotespct("D"),
+    'topAttendance': topAttend(),
 
-    'Missed votes pct independent': namesMissVotespct("I"),
 
 };
 
@@ -87,92 +86,167 @@ function averageParty(party) {
 
     var average = sum / total;
 
-    return average;
+    var averageRound = average.toFixed();
+
+    return averageRound;
 }
 
 
+//Functio to calculate the names on 10% missed votes
 
-function namesMissVotespct(party) {
+function bottomAttend() {
 
-    var total = totalPerParty(party);
-
-    var ArrTotalMissVotes = [];
-
-    var percentMissed = [];
-
-    var TotalMembersParty = [];
 
     var membersPerParty = data.results[0].members;
 
+
     // I Make an array to put the total number of members per party
 
-    for (var i = 0; i < membersPerParty.length; i++) {
+    var ar = [];
 
-        if (membersPerParty[i].party == party) {
+    membersPerParty.sort(function (x, y) {
+        return x.missed_votes_pct - y.missed_votes_pct;
+    });
 
-            TotalMembersParty.push(membersPerParty[i]);
+    //In case of 10 per cent of 105 members
+
+    //var total = (membersPerParty.length/10);
+
+    var tenPctMissed = membersPerParty.slice(0, 11);
+
+    for (var i = 11; i<membersPerParty.length; i++) {
+        
+        for( var j=11; i<tenPctMissed.length;j++){
+            
+            if(membersPerParty[i]==)
+            
+            
         }
+
+        
+            
+            ar.push(tenPctMissed);
+        }
+
+
     }
-
-    for (var i = 0; i < TotalMembersParty.length; i++) {
-
-        ArrTotalMissVotes.push(TotalMembersParty[i].missed_votes_pct + " " + membersPerParty[i].first_name + " " + (TotalMembersParty[i].middle_name || "") + TotalMembersParty[i].last_name);
-
-
-    }
-
-    var totalMissVtSort = ArrTotalMissVotes.sort();
-
-    var tenPctMissed = totalMissVtSort.slice(0, 10);
-
-    var string = tenPctMissed.toString();
-
-    var res = string.match(/isNaN/g);
-
-
-
-
-    //    var string2 = string.replace(/,/g," ");
-    //    
-    //    var arr= string2.split(" ");
-    //    
-    //    for( var i =0; i<arr.length;i++){
-    //        
-    //        if (!isNaN(arr[i])){
-    //            
-    //            delete arr[i];
-    //        }
-    //    }
-
-
-
-
-
-    return res;
+    
+    return ar;
 
 }
 
 
-//var numeros="0123456789";
+
+
+
+
+
+
+
+function topAttend() {
+
+
+    var arrTop = [];
+
+
+    var membersPerParty = data.results[0].members;
+
+
+    // I Make an array to put the total number of members per party
+
+    membersPerParty.sort(function (x, y) {
+        return y.missed_votes_pct - x.missed_votes_pct;
+    });
+
+    //In case of 10 per cent of 105 members
+
+    //var total = (10/membersPerParty.length)*100;
+
+    var tenPctMissed = membersPerParty.slice(0, 10);
+
+    for (var i = 0; i < tenPctMissed.length; i++) {
+
+        arrTop.push(tenPctMissed[i]);
+    }
+    return arrTop;
+}
+
+
+//Make the first table for senate glance. Firstly for the number of total members of every party
+var tableSenateGlance = document.getElementById("republican-total");
+
+var novaFila = document.createElement("tr");
+
+novaFila.insertCell().innerHTML = statistics.numberRepublican;
+
+tableSenateGlance.append(novaFila);
+
+var tableSenateGlance = document.getElementById("democrat-total");
+
+var novaFila = document.createElement("tr");
+
+novaFila.insertCell().innerHTML = statistics.numberDemocrat;
+
+tableSenateGlance.append(novaFila);
+
+var tableSenateGlance = document.getElementById("independent-total");
+
+var novaFila = document.createElement("tr");
+
+novaFila.insertCell().innerHTML = statistics.numberIndependent;
+
+tableSenateGlance.append(novaFila);
+
+//Secondly the % of votes
+
+var tableSenateGlance = document.getElementById("republican-average");
+
+var novaFila = document.createElement("tr");
+
+novaFila.insertCell().innerHTML = statistics.percentRepublican;
+
+tableSenateGlance.append(novaFila);
+
+var tableSenateGlance = document.getElementById("democrat-average");
+
+var novaFila = document.createElement("tr");
+
+novaFila.insertCell().innerHTML = statistics.percentDemocrat;
+
+tableSenateGlance.append(novaFila);
+
+var tableSenateGlance = document.getElementById("independent-average");
+
+var novaFila = document.createElement("tr");
+
+novaFila.insertCell().innerHTML = statistics.percentIndependent;
+
+tableSenateGlance.append(novaFila);
+
+//I make de table about bottom 10% attendance
+
+var tableBottomSenate = document.getElementById("bottom-attendance");
+
+
+for (var i = 0; i < statistics.bottomAttendance.length; i++) {
+    var novaFila = document.createElement("tr");
+    novaFila.insertCell().innerHTML = statistics.bottomAttendance[i].first_name + " " + statistics.bottomAttendance[i].last_name;
+    novaFila.insertCell().innerHTML = statistics.bottomAttendance[i].missed_votes;
+    novaFila.insertCell().innerHTML = statistics.bottomAttendance[i].missed_votes_pct;
+
+    tableBottomSenate.append(novaFila);
+}
+
+//I make de table about top 10% attendance
+
+//var tableBottomSenate = document.getElementById(" ");
 //
-//function tiene_numeros(texto){
-//   for(i=0; i<texto.length; i++){
-//      if (string.indexOf(texto.charAt(i),0)!=-1){
-//         return 1;
-//      }
-//   }
-//  
+//
+//for (var i = 0; i < statistics.bottomAttendance.length; i++) {
+//    var novaFila = document.createElement("tr");
+//    novaFila.insertCell().innerHTML = statistics.bottomAttendance[i].first_name +" "+ statistics.bottomAttendance[i].last_name;
+//    novaFila.insertCell().innerHTML = statistics.bottomAttendance[i].missed_votes;
+//    novaFila.insertCell().innerHTML = statistics.bottomAttendance[i].missed_votes_pct;
+//    
+//    tableBottomSenate.append(novaFila);
 //}
-
-
-// var names = TotalMembersParty[i].first_name + " " + (TotalMembersParty[i].middle_name || "") + " " + TotalMembersParty[i].last_name;
-
-
-// var tenpct = membersPerParty.length/10;
-//    var totalMissVtSort = ArrTotalMissVotes.sort();
-//
-//    var tenPctMissed = totalMissVtSort.slice(0, tenpct);
-//    var topTenPctMissed = totalMissVtSort.slice(membersPerParty.length - tenpct, membersPerParty.length);
-//
-//
-//    return tenPctMissed;
