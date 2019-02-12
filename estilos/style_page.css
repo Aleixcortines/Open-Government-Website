@@ -19,17 +19,17 @@ thead {
 }
 
 .home_image {
-    
+
     height: 300px;
     margin-right: 10px;
 }
 
-.about{
-    
-        margin: 17px;
+.about {
+
+    margin: 17px;
 }
 
-.read_more{
+.read_more {
     font-size: 14px;
     color: #259fce
 }
@@ -37,9 +37,49 @@ thead {
 
 
 
-
 .filters {
     display: flex;
-        display: flex;
+
     justify-content: space-between;
+}
+
+
+
+
+.cont_glance {
+
+    display: flex;
+
+}
+
+.attendance {
+
+    display: flex;
+    justify-content: space-around;
+
+}
+
+
+
+.cont-top-bottom {
+    display: flex;
+    justify-content: space-around;
+
+
+}
+
+.text-attendance {
+
+    width: 50%;
+}
+
+.cont-glance {
+    width: 40%;
+
+
+}
+
+.cont-bottom {
+
+    width: 45%;
 }

@@ -2,175 +2,165 @@
 <html lang="en">
     <head>
 
+    <link rel="stylesheet" href="/estilos/style_page.css">
+    <!-- carregar llibreria versio 4.2.1 bootstrap sempre en el head-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!-- Preguntar per què aquestes llibreries-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 
 </head>
 
+
 <body>
-    <nav>
-        <div>
-            <div>
-                <a href="#">TGIF</a>
+
+    <img class=logo_tgif src="/images/tgif_logo.png" alt="logo marca">
+    <!--logo bootstrap-->
+    <a class="navbar-brand" href="#">TGIF</a>
+    <!--Creem navegació amb bootstrap-->
+    <nav class="navbar navbar-expand-sm bg-light">
+        <!--item-->
+        <div class="nav-item">
+            <!--link-->
+            <a class="nav-link" href="/home.html">Home</a></div>
+        <!--Creem el dropdown-->
+        <div class="nav-item dropdown">
+            <!--Congress 113 va fix i fent click sortira el desplegable-->
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                Congress 113
+            </a>
+            <div class="dropdown-menu">
+
+                <a class="dropdown-item" href="/senate-data.html">Senate</a>
+
+                <a class="dropdown-item" href="/house-data.html">House</a>
             </div>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li>
-                    <a href="#">Congress 113</a>
-                    <ul>
-                        <li><a href="#">Senate</a></li>
-                        <li><a href="#">House</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">Attendance</a></li>
-                <ul>
-                    <li><a href="#">Senate</a></li>
-                    <li><a href="#">House</a></li>
-                </ul>
-
-                <li>
-                    <a href="#">Party Loyalty</a>
-                    <ul>
-                        <li><a href="#">Senate</a></li>
-                        <li><a href="#">House</a></li>
-                    </ul>
-                </li>
-            </ul>
         </div>
-    </nav>
 
+        <div class="nav-item dropdown">
+            <!--Congress 113 va fix i fent click sortira el desplegable-->
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                Attendance
+            </a>
+            <div class="dropdown-menu">
+
+                <a class="dropdown-item" href="/house-attendance-statistics.html">House</a>
+
+                <a class="dropdown-item" href="/senate-attendance-statistics.html">Senate</a>
+            </div>
+        </div>
+
+        <div class="nav-item dropdown">
+            <!--Congress 113 va fix i fent click sortira el desplegable-->
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                Party Loyalty
+            </a>
+            <div class="dropdown-menu">
+
+                <a class="dropdown-item" href="/house-party-loyalty-statistics.html">House</a>
+
+                <a class="dropdown-item" href="#">Senate</a>
+            </div>
+        </div>
+
+    </nav>
 
     <header>
         <div>
         </div>
     </header>
     <!--Table container-->
-    <div>
-        <h2>Party Loyalty</h2>
-        <p>Those who consider themselves to be strong partisans, strong Democrats and strong Republicans respectively, tend to be the most faithful in voting for their party's nominee for office and legislation that backs their party's agenda. </p>
+   
 
-        <h2>Senate at a glance</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Party</th>
-                    <th>Number of Reps</th>
-                    <th>% Voted with Prty</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Republican</td>
-                    <td>--</td>
-                    <td>--</td>
-                </tr>
-                <tr>
-                    <td>Democrat</td>
-                    <td>--</td>
-                    <td>--</td>
-                </tr>
-                <tr>
-                    <td>Independent</td>
-                    <td>--</td>
-                    <td>--</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="attendance">
+            <div class="text-attendance">
+                <h2>Attendance</h2>
+                <p>The Constitution specifies that a majority of members constitutes a quorum to do business in each house. Representatives and senators rarely force the presence of a quorum by demanding quorum calls; thus, in most cases, debates continue even if a majority is not present.</p>
 
-        <h2>Least Loyal (Bottom 10% of Party)</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Number Party Votes</th>
-                    <th>% Party Votes</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                </tr>
-                <tr>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                </tr>
-                <tr>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                </tr>
-                <tr>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                </tr>
-                <tr>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                </tr>
-                <tr>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                </tr>
-            </tbody>
-        </table>
+                <p>The Senate uses roll-call votes; a clerk calls out the names of all the senators, each senator stating "aye" or "no" when his or her name is announced. The House reserves roll-call votes for the most formal matters, as a roll-call of all 435 representatives takes quite some time; normally, members vote by electronic device. In the case of a tie, the motion in question fails. In the Senate, the Vice President may (if present) cast the tiebreaking vote.</p>
 
-        <h2>Most Loyal (Top 10% of Party)</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Number Party Votes</th>
-                    <th>% Party Votes</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                </tr>
-                <tr>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                </tr>
-                <tr>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                </tr>
-                <tr>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                </tr>
-                <tr>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                </tr>
-                <tr>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                </tr>
-                <tr>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                </tr>
-            </tbody>
-        </table>
+            </div>
 
-    </div>
+            <div class="cont-glance">
+
+                <h2>Senate at a glance</h2>
+                
+         
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Party</th>
+                            <th>Number of Reps</th>
+                            <th>% Voted with Prty</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="glance">
+
+                        <tr>
+                            <td>Republican</td>
+                        </tr>
+                        <tr>
+                            <td>Democrat</td>                         
+                        </tr>
+                        <tr>
+                            <td>Independent</td>
+                        </tr>
+                        <tr>
+                            <td>Total</td>
+                            
+                        </tr>
+
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="cont-top-bottom">
+            
+            <div class="cont-bottom">
+
+            <h2>Least Engaged (Bottom 10% Attendance)</h2>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Number of Missed Votes</th>
+                        <th>% Missed</th>
+                    </tr>
+                </thead>
+                <tbody id="top-attendance">
+
+                </tbody>
+            </table>
+            </div>
+
+            <div class="cont_top">
+
+                <h2>Most Engaged (Top 10% Attendance)</h2>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Number of Missed Votes</th>
+                            <th>% Missed</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bottom-attendance">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+  
+
 
     <script src="pro-congress-113-senate.js"></script>
-
+    
+    
     <script src="statistics.js"> </script>
 </body>
 </html>
