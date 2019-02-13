@@ -83,3 +83,39 @@ thead {
 
     width: 45%;
 }
+
+
+
+.title-govern {
+    display: inline-block;
+    color:#e47777;
+}
+
+
+
+
+
+.mailbox {
+        width: 30px;
+    margin-left: 500px;
+}
+
+.cont-superior {
+    display:flex;
+}
+
+.mail {
+        margin-top: 52px;
+}
+
+.mailto {
+    color: gray;
+}
+
+
+
+
+
+.bg-light {
+    background-color: blue;
+}

@@ -1,78 +1,92 @@
-//Fem una variable taula on guardarem la taula i linkem amb id de taula del html
+var members= data.results[0].members;
 
-var table = document.getElementById("table-data");
+tableMembers();
+dropDownStates();
+filters();
 
-//Creem una variable members per accedir comodament al objecte members del senat 
 
-var members = data.results[0].members;
 
-// Creem el loop per replicar totes les files de la taula i posar la info a cada cel·la
+function tableMembers() {
+    //Fem una variable taula on guardarem la taula i linkem amb id de taula del html
 
-for (var i = 0; i < members.length; i++) {
+    var table = document.getElementById("table-data");
 
-    //Creem variable per anar replicat files i a dins la variable utilitzem createElement 
+    //Creem una variable members per accedir comodament al objecte members del senat 
 
-    var novaFila = document.createElement("tr");
+   
 
-    //Fem una varible per guardar first name i last name
+    // Creem el loop per replicar totes les files de la taula i posar la info a cada cel·la
 
-    var nomComplert = data.results[0].members[i].first_name + " " + (data.results[0].members[i].middle_name || "") + " " + data.results[0].members[i].last_name;
+    for (var i = 0; i < members.length; i++) {
 
-    //Creem una variable per guardar el link del candidat
+        //Creem variable per anar replicat files i a dins la variable utilitzem createElement 
 
-    var linkCandidato = nomComplert.link(data.results[0].members[i].url);
+        var novaFila = document.createElement("tr");
 
-    //per cada cel·la insertem la info, first name, party state...utilitzeminsert cell per posar info a dins
+        //Fem una varible per guardar first name i last name
 
-    novaFila.insertCell().innerHTML = linkCandidato;
-    novaFila.insertCell().innerHTML = members[i].party;
-    novaFila.insertCell().innerHTML = members[i].state;
-    novaFila.insertCell().innerHTML = members[i].seniority;
-    novaFila.insertCell().innerHTML = members[i].votes_with_party_pct;
+        var nomComplert = data.results[0].members[i].first_name + " " + (data.results[0].members[i].middle_name || "") + " " + data.results[0].members[i].last_name;
 
-    // Amb append posem la info de variable nova fila a variable table
+        //Creem una variable per guardar el link del candidat
 
-    table.append(novaFila)
+        var linkCandidato = nomComplert.link(data.results[0].members[i].url);
+
+        //per cada cel·la insertem la info, first name, party state...utilitzeminsert cell per posar info a dins
+
+        novaFila.insertCell().innerHTML = linkCandidato;
+        novaFila.insertCell().innerHTML = members[i].party;
+        novaFila.insertCell().innerHTML = members[i].state;
+        novaFila.insertCell().innerHTML = members[i].seniority;
+        novaFila.insertCell().innerHTML = members[i].votes_with_party_pct;
+
+        // Amb append posem la info de variable nova fila a variable table
+
+        table.append(novaFila)
+    }
+    
+    return table;
 }
 
 
 // Anem a crear select dropdown per estats. Abans ordenem i treiem estat repetits del Array members creant nou array
 
+function dropDownStates() {
 
-var noDupl= [];
+    var noDupl = [];
 
-for (var i = 0; i < members.length; i++) {
+    for (var i = 0; i < members.length; i++) {
 
-   if (!noDupl.includes(members[i].state)){
-        
-        noDupl.push(members[i].state);
+        if (!noDupl.includes(members[i].state)) {
+
+            noDupl.push(members[i].state);
+        }
     }
-}
 
 
-var statesUniqs = noDupl.sort();
+    var statesUniqs = noDupl.sort();
 
-//Treiem els elements repetits del array
+    //Treiem els elements repetits del array
 
 
-console.log(statesUniqs);
+    console.log(statesUniqs);
 
-//Creem automaticament les opcions del filtre per estat
+    //Creem automaticament les opcions del filtre per estat
 
-var options = document.getElementById("filter-state");
+    var options = document.getElementById("filter-state");
 
-for (var i = 0; i < statesUniqs.length; i++) {
+    for (var i = 0; i < statesUniqs.length; i++) {
 
-    var novaOption = document.createElement("option");
+        var novaOption = document.createElement("option");
 
-    var estado = statesUniqs[i];
+        var estado = statesUniqs[i];
 
-    novaOption.append(estado);
+        novaOption.append(estado);
 
-    novaOption.setAttribute("value", estado);
+        novaOption.setAttribute("value", estado);
 
-    options.append(novaOption);
+        options.append(novaOption);
 
+    }
 }
 
 // Creem un event listener on al fer click a cada dels 3 botons i el dropdown select cridará a la funcio filters
@@ -89,6 +103,8 @@ document.getElementById('filter-state').addEventListener('change', filters);
 //Creem la funcio filter per realitzar tots els tipus de filtre
 
 function filters() {
+    
+    var table = tableMembers();
     //Creem un array buit on enmagatzemarem el valor o valors que ens interessa del checkbox 
     var partyArray = [];
 
@@ -121,12 +137,3 @@ function filters() {
         }
     }
 }
-
-
-
-
-
-
-
-
-
