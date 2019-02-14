@@ -131,7 +131,7 @@ function averageParty(party) {
 
     var average = sum / total;
 
-    var averageRound = average.toFixed() + " %";
+    var averageRound = average.toFixed();
 
     return averageRound;
 }
@@ -155,7 +155,7 @@ function numberTotPct() {
 
     var num = sum / members.length;
 
-    var totalRound = num.toFixed() + " %";
+    var totalRound = num.toFixed();
 
     return totalRound;
 
@@ -325,23 +325,23 @@ function TableGlancepct() {
 
     var tableReppct = document.querySelector("#glance").rows;
     var novaFilaReppct = document.createElement("td");
-    novaFilaReppct.innerHTML = statistics.percentRepublican;
+    novaFilaReppct.innerHTML = statistics.percentRepublican + " %";
     tableReppct[0].append(novaFilaReppct);
 
     var tableDempct = document.querySelector("#glance").rows;
     var novaFilaDempct = document.createElement("td");
-    novaFilaDempct.innerHTML = statistics.percentDemocrat;
+    novaFilaDempct.innerHTML = statistics.percentDemocrat + " %";
     tableDempct[1].append(novaFilaDempct);
 
     var tableInpct = document.querySelector("#glance").rows;
     var novaFilaInpct = document.createElement("td");
-    novaFilaInpct.innerHTML = statistics.percentIndependent 
-    if (!isNaN(statistics.percentIndependent)) statistics.percentIndependent=0;    
-    tableInpct[2].append(novaFilaInpct);
-
+    novaFilaInpct.innerHTML = (statistics.percentIndependent || 0 )+ " %";
+    tableInpct[2].append( novaFilaInpct);
+    
+    
     var tabletotpct = document.querySelector("#glance").rows;
     var novaFilatotpct = document.createElement("td");
-    novaFilatotpct.innerHTML = statistics.numberTotalPct;
+    novaFilatotpct.innerHTML = statistics.numberTotalPct+ " %";
     tabletotpct[3].append(novaFilatotpct);
 
 
