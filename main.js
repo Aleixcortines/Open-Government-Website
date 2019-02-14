@@ -1,19 +1,37 @@
-var members= data.results[0].members;
+var url = 'https://api.propublica.org/congress/v1/113/senate/members.json';
+  var members ;
+fetch(url, {
 
-tableMembers();
-dropDownStates();
-filters();
+        method: 'GET',
+
+        headers: new Headers({
+            'X-API-Key': 'ErRMpHEa29IHVaRlGhaKWRijIvC2dNwrtuq7zUJm'
+        })
+
+    }).then(function (response) {
+        return response.json();
 
 
+    })
+    .then(function (json) {
+        console.log(JSON.stringify(json));
 
-function tableMembers() {
+         members = json.results[0].members;
+
+        tableMembers(members);
+        dropDownStates(members);
+        filters(members);
+
+    }).catch(function (error) {
+        console.log("Request failed: " + error.message);
+
+    });
+
+
+function tableMembers(members) {
     //Fem una variable taula on guardarem la taula i linkem amb id de taula del html
 
     var table = document.getElementById("table-data");
-
-    //Creem una variable members per accedir comodament al objecte members del senat 
-
-   
 
     // Creem el loop per replicar totes les files de la taula i posar la info a cada cel·la
 
@@ -25,11 +43,11 @@ function tableMembers() {
 
         //Fem una varible per guardar first name i last name
 
-        var nomComplert = data.results[0].members[i].first_name + " " + (data.results[0].members[i].middle_name || "") + " " + data.results[0].members[i].last_name;
+        var nomComplert = members[i].first_name + " " + (members[i].middle_name || "") + " " + members[i].last_name;
 
         //Creem una variable per guardar el link del candidat
 
-        var linkCandidato = nomComplert.link(data.results[0].members[i].url);
+        var linkCandidato = nomComplert.link(members[i].url);
 
         //per cada cel·la insertem la info, first name, party state...utilitzeminsert cell per posar info a dins
 
@@ -43,14 +61,14 @@ function tableMembers() {
 
         table.append(novaFila)
     }
+
     
-    return table;
 }
 
 
 // Anem a crear select dropdown per estats. Abans ordenem i treiem estat repetits del Array members creant nou array
 
-function dropDownStates() {
+function dropDownStates(members) {
 
     var noDupl = [];
 
@@ -61,7 +79,6 @@ function dropDownStates() {
             noDupl.push(members[i].state);
         }
     }
-
 
     var statesUniqs = noDupl.sort();
 
@@ -102,9 +119,10 @@ document.getElementById('filter-state').addEventListener('change', filters);
 
 //Creem la funcio filter per realitzar tots els tipus de filtre
 
-function filters() {
-    
-    var table = tableMembers();
+function filters(members) {
+
+ 
+    var table = document.getElementById("table-data");
     //Creem un array buit on enmagatzemarem el valor o valors que ens interessa del checkbox 
     var partyArray = [];
 

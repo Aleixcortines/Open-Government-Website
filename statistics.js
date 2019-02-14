@@ -335,7 +335,11 @@ function TableGlancepct() {
 
     var tableInpct = document.querySelector("#glance").rows;
     var novaFilaInpct = document.createElement("td");
-    novaFilaInpct.innerHTML = (statistics.percentIndependent || 0 )+ " %";
+    //If we have a value NaN we want to imprime 0 no NaN
+    if (statistics.percentIndependent == "NaN" ) {
+       statistics.percentIndependent=0
+    }
+    novaFilaInpct.innerHTML =  statistics.percentIndependent  + " %"; 
     tableInpct[2].append( novaFilaInpct);
     
     
