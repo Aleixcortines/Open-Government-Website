@@ -15,23 +15,35 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 </head>
 
-<body>
+<body id="house-dat">
+   
+   
+   
+<div id="demo">
+    
+    <script>
+    var popo = document.location.pathname
+        
+    alert(popo)
+    </script>
+    
+</div>
     <div class=cont-superior>
-    <div class="logos">
-        <img class=logo_tgif src="/images/tgif_logo.png" alt="logo marca">
-        <!--logo bootstrap-->
+        <div class="logos">
+            <img class=logo_tgif src="/images/tgif_logo.png" alt="logo marca">
+            <!--logo bootstrap-->
 
-        <h2 class="title-govern">Transparent Government in fact</h2>
+            <h2 class="title-govern">Transparent Government in fact</h2>
 
-    </div>
-    <div class="mail">
-    <img class="mailbox" src="/images/mail.png" alt="mail icon">
-        <span><a class= "mailto" href="mailto:info@tgif.net">info@tgif.net</a></span>
-  
-    </div>
+        </div>
+        <div class="mail">
+            <img class="mailbox" src="/images/mail.png" alt="mail icon">
+            <span><a class="mailto" href="mailto:info@tgif.net">info@tgif.net</a></span>
+
+        </div>
     </div>
     <!--Creem navegació amb bootstrap-->
-     <nav class="navbar navbar-expand-sm bg-light">
+    <nav class="navbar navbar-expand-sm menu">
         <!--item-->
         <div class="nav-item">
             <!--link-->
@@ -123,14 +135,23 @@
                 </tr>
             </thead>
 
-            <tbody id="table-data">
-
+            <tbody id="app">
+                <tr v-for="item in members">
+                    <td> <a v-bind:href=item.url> {{item.first_name}} {{item.middle_name}} {{item.last_name}}</a> </td>
+                    <td>{{item.party}}</td>
+                    <td>{{item.state}}</td>
+                    <td>{{item.seniority}}</td>
+                    <td>{{item.votes_with_party_pct}} %</td>
+                </tr>
             </tbody>
 
         </table>
 
 
-        <script src="/pro%20-congress-113-house.js"></script>
+        <!--<script src="/pro%20-congress-113-house.js"></script>-->
+
+        <!--Add Vue script-->
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
         <script src="main.js"></script>
 

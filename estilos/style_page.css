@@ -116,6 +116,34 @@ thead {
 
 
 
-.bg-light {
-    background-color: blue;
+
+
+.table {
+    
 }
+
+
+
+.menu {
+    background-color: #38528a;
+}
+
+.nav-link {
+    color: #38528a;
+}
+
+.nav-item {
+    background-color: white;
+    border-radius: 150px;
+    margin-right: 5px;
+}
+
+
+
+.drop-item {
+    color: #38528a;
+}
+
+
+
+

@@ -1,69 +1,64 @@
-var url = 'https://api.propublica.org/congress/v1/113/senate/members.json';
-  var members ;
-fetch(url, {
+//global variable about all members
 
-        method: 'GET',
+var members;
 
-        headers: new Headers({
-            'X-API-Key': 'ErRMpHEa29IHVaRlGhaKWRijIvC2dNwrtuq7zUJm'
+//if the html is senate charge the senate json, if not chrage the house json
+
+if (location.pathname == '/senate-data.html' || location.pathname == '/senate-attendance-statistics.html' || location.pathname == '/senate-party-loyalty-statistics.html')
+
+{
+    start('https://api.propublica.org/congress/v1/113/senate/members.json');
+} else {
+
+    start('https://api.propublica.org/congress/v1/113/house/members.json');
+}
+
+//Fetch API to work async
+
+function start(url) {
+
+
+
+    fetch(url, {
+
+            method: 'GET',
+
+            headers: new Headers({
+                'X-API-Key': 'ErRMpHEa29IHVaRlGhaKWRijIvC2dNwrtuq7zUJm'
+            })
+
+        }).then(function (response) {
+            return response.json();
+
+
         })
-
-    }).then(function (response) {
-        return response.json();
-
-
-    })
-    .then(function (json) {
-        console.log(JSON.stringify(json));
-
-         members = json.results[0].members;
-
-        tableMembers(members);
-        dropDownStates(members);
-        filters(members);
-
-    }).catch(function (error) {
-        console.log("Request failed: " + error.message);
-
-    });
+        .then(function (json) {
+            console.log(JSON.stringify(json));
+            // members taje the object members
+            members = json.results[0].members;
+            //object vue
+            objectVueTable.members = members;
 
 
-function tableMembers(members) {
-    //Fem una variable taula on guardarem la taula i linkem amb id de taula del html
+            dropDownStates(members);
+            filters(members);
 
-    var table = document.getElementById("table-data");
+        }).catch(function (error) {
+            console.log("Request failed: " + error.message);
 
-    // Creem el loop per replicar totes les files de la taula i posar la info a cada cel·la
+        });
 
-    for (var i = 0; i < members.length; i++) {
+}
 
-        //Creem variable per anar replicat files i a dins la variable utilitzem createElement 
+// Vue object 
 
-        var novaFila = document.createElement("tr");
-
-        //Fem una varible per guardar first name i last name
-
-        var nomComplert = members[i].first_name + " " + (members[i].middle_name || "") + " " + members[i].last_name;
-
-        //Creem una variable per guardar el link del candidat
-
-        var linkCandidato = nomComplert.link(members[i].url);
-
-        //per cada cel·la insertem la info, first name, party state...utilitzeminsert cell per posar info a dins
-
-        novaFila.insertCell().innerHTML = linkCandidato;
-        novaFila.insertCell().innerHTML = members[i].party;
-        novaFila.insertCell().innerHTML = members[i].state;
-        novaFila.insertCell().innerHTML = members[i].seniority;
-        novaFila.insertCell().innerHTML = members[i].votes_with_party_pct;
-
-        // Amb append posem la info de variable nova fila a variable table
-
-        table.append(novaFila)
+var objectVueTable = new Vue({
+    el: "#app",
+    data: {
+        members: []
     }
 
-    
-}
+});
 
 
 // Anem a crear select dropdown per estats. Abans ordenem i treiem estat repetits del Array members creant nou array
@@ -121,8 +116,8 @@ document.getElementById('filter-state').addEventListener('change', filters);
 
 function filters(members) {
 
- 
-    var table = document.getElementById("table-data");
+
+    var table = document.getElementById("app");
     //Creem un array buit on enmagatzemarem el valor o valors que ens interessa del checkbox 
     var partyArray = [];
 
@@ -155,5 +150,3 @@ function filters(members) {
         }
     }
 }
-
-///Hola Aleix
