@@ -16,24 +16,14 @@
 </head>
 
 <body id="house-dat">
-   
-   
-   
-<div id="demo">
-    
-    <script>
-    var popo = document.location.pathname
-        
-    alert(popo)
-    </script>
-    
-</div>
+
+
     <div class=cont-superior>
         <div class="logos">
             <img class=logo_tgif src="/images/tgif_logo.png" alt="logo marca">
             <!--logo bootstrap-->
 
-            <h2 class="title-govern">Transparent Government in fact</h2>
+            <h2 class="title-govern">Transparent Government in Fact</h2>
 
         </div>
         <div class="mail">
@@ -90,7 +80,7 @@
 
     </nav>
     <!--Table container-->
-    <div>
+    <div class="container-senators">
         <h2>Congressmen</h2>
         <p>The major power of the House is to pass federal legislation that affects the entire country, although its bills must also be passed by the Senate and further agreed to by the U.S. President before becoming law (unless both the House and Senate re-pass the legislation with a two-thirds majority in each chamber). The House has some exclusive powers: the power to initiate revenue bills, to impeach officials (impeached officials are subsequently tried in the Senate), and to elect the U.S. President in case there is no majority in the Electoral College.</p>
         <p>Each U.S. state is represented in the House in proportion to its population as measured in the census, but every state is entitled to at least one representative. </p>
@@ -98,11 +88,11 @@
         <!--Elements pels filtres per ckeckbox-->
         <div class="filters">
             <div class="checkbox-filter">
-                <span>Filter by Party:</span>
-                <label> <input type="checkbox" id="miBotonRepublica" name="Republican" value="Republican">Republican</label>
-                <label><input type="checkbox" id="miBotonDemocrat" name="Democrat" value="Democrat">Democrat</label>
+                <span class="filtersByPart">Filter by Party:</span>
+                <label class="labels"> <input type="checkbox" id="miBotonRepublica" name="Republican" value="Republican">Republican</label>
+                <label class="labels"><input type="checkbox" id="miBotonDemocrat" name="Democrat" value="Democrat">Democrat</label>
 
-                <label><input type="checkbox" id="miBotonInde" name="Independent" value="Independent">Independent</label>
+                <label class="labels"><input type="checkbox" id="miBotonInde" name="Independent" value="Independent">Independent</label>
 
             </div>
 
@@ -118,34 +108,50 @@
         </div>
 
 
+        <div id="app">
+            <div class="loader" v-if="members.length == 0">
 
-        <!--Creem id a la taula per treballar al JS-->
+                <div class="lds-roller">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
 
-        <table class="table table-hover">
 
-            <!--Creem el thead de la taula, ho fem al html pq es un element no dinamin que sempre sera igual-->
+            <table v-else class="table table-hover">
 
-            <thead>
-                <tr>
-                    <td>Name</td>
-                    <td>Party</td>
-                    <td>State</td>
-                    <td>Years in Office</td>
-                    <td>% Votes w/Party</td>
-                </tr>
-            </thead>
 
-            <tbody id="app">
-                <tr v-for="item in members">
-                    <td> <a v-bind:href=item.url> {{item.first_name}} {{item.middle_name}} {{item.last_name}}</a> </td>
-                    <td>{{item.party}}</td>
-                    <td>{{item.state}}</td>
-                    <td>{{item.seniority}}</td>
-                    <td>{{item.votes_with_party_pct}} %</td>
-                </tr>
-            </tbody>
+                <!--Creem el thead de la taula, ho fem al html pq es un element no dinamin que sempre sera igual-->
 
-        </table>
+                <thead>
+                    <tr>
+                        <td>Name</td>
+                        <td>Party</td>
+                        <td>State</td>
+                        <td>Years in Office</td>
+                        <td>% Votes w/Party</td>
+                    </tr>
+                </thead>
+
+                <tbody id="allTable">
+                    <tr v-for="item in members">
+                        <td> <a v-bind:href=item.url> {{item.first_name}} {{item.middle_name}} {{item.last_name}}</a> </td>
+                        <td>{{item.party}}</td>
+                        <td>{{item.state}}</td>
+                        <td>{{item.seniority}}</td>
+                        <td>{{item.votes_with_party_pct}} %</td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
 
 
         <!--<script src="/pro%20-congress-113-house.js"></script>-->

@@ -4,7 +4,7 @@ var members;
 
 //if the html is senate charge the senate json, if not chrage the house json
 
-if (location.pathname == '/senate-data.html' || location.pathname == '/senate-attendance-statistics.html' || location.pathname == '/senate-party-loyalty-statistics.html')
+if (location.pathname == '/senate-data.html')
 
 {
     start('https://api.propublica.org/congress/v1/113/senate/members.json');
@@ -117,7 +117,7 @@ document.getElementById('filter-state').addEventListener('change', filters);
 function filters(members) {
 
 
-    var table = document.getElementById("app");
+    var table = document.getElementById("allTable");
     //Creem un array buit on enmagatzemarem el valor o valors que ens interessa del checkbox 
     var partyArray = [];
 

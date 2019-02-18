@@ -1,86 +1,140 @@
-// I make the object statistics to senate-attendance
-var statistics = {
+if (location.pathname == '/senate-attendance-statistics.html' || location.pathname == '/senate-party-loyalty-statistics.html')
 
-    'numberRepublican': totalPerParty("R"),
+{
+    start('https://api.propublica.org/congress/v1/113/senate/members.json');
 
-    'numberDemocrat': totalPerParty("D"),
 
-    'numberIndependent': totalPerParty("I"),
+} else {
 
-    'numberTotal': numberTot(),
+    start('https://api.propublica.org/congress/v1/113/house/members.json');
 
-    'percentRepublican': averageParty("R"),
-
-    'percentDemocrat': averageParty("D"),
-
-    'percentIndependent': averageParty("I"),
-
-    'numberTotalPct': numberTotPct(),
-
-    'bottomAttendance': bottomAttend(),
-
-    'topAttendance': topAttend(),
-
-    'bottomParty': bottomPart(),
-
-    'topParty': topPart(),
-
-};
-
-//Call the function about to make the table glance
-tableGlance();
-
-TableGlancepct();
-
-//Call the function about to make the the table 10pct bottom attendance
-
-if (document.getElementById("bottom-attendance")) {
-    bottomAttendance();
 }
 
-if (document.getElementById("top-attendance")) {
-    topAttendance();
+function start(url) {
+
+
+    fetch(url, {
+
+            method: 'GET',
+
+            headers: new Headers({
+                'X-API-Key': 'ErRMpHEa29IHVaRlGhaKWRijIvC2dNwrtuq7zUJm'
+            })
+
+        }).then(function (response) {
+            return response.json();
+
+
+        })
+        .then(function (json) {
+            //            console.log(JSON.stringify(json));
+            // members taje the object members
+            objectVue.members = json.results[0].members;
+
+            var members = json.results[0].members;
+
+
+
+            // I make the object statistics to senate-attendance
+
+            var statistics = {
+
+                'numberRepublican': totalPerParty(members, "R"),
+
+                'numberDemocrat': totalPerParty(members, "D"),
+
+                'numberIndependent': totalPerParty(members, "I"),
+
+                'numberTotal': numberTot(members),
+
+                'percentRepublican': averageParty(members, "R"),
+
+                'percentDemocrat': averageParty(members, "D"),
+
+                'percentIndependent': averageParty(members, "I"),
+
+                'numberTotalPct': numberTotPct(members),
+
+                'bottomAttendance': bottomAttend(members),
+
+                'topAttendance': topAttend(members),
+
+                'bottomParty': bottomPart(members),
+
+                'topParty': topPart(members),
+
+            };
+
+            objectVue.statistics = statistics;
+
+            //Call the function about to make the table glance
+            //            tableGlance(statistics);
+
+            //Call the function about to make the the table 10pct bottom attendance
+
+            //            TableGlancepct(statistics);
+
+            //Rest of the functions
+
+            //            if (document.getElementById("bottom-attendance")) {
+            //                bottomAttendance(statistics);
+            //            }
+            //
+            //            if (document.getElementById("top-attendance")) {
+            //                topAttendance(statistics);
+            //            }
+            //
+            //            //Call the Table to bottom party
+            //            if (document.getElementById("bottom-party")) {
+            //                bottomPartyTable(statistics);
+            //            }
+            //
+            //            if (document.getElementById("top-party")) {
+            //                topPartyTable(statistics);
+            //            }
+            //        });
+        })
 }
 
-//Call the Table to bottom party
-if (document.getElementById("bottom-party")) {
-    bottomPartyTable();
-}
 
-if (document.getElementById("top-party")) {
-    topPartyTable();;
-}
 
+var objectVue = new Vue({
+    el: "#app",
+    data: {
+        statistics: [],
+        members: []
+    }
+
+});
 
 
 
 //Function to calculate the total number of parties
 
-function numberTot() {
+function numberTot(members) {
 
-    var membersPerParty = data.results[0].members;
+    var members;
 
-    var totalParty = membersPerParty.length;
+    var totalParty = members.length;
 
     return totalParty;
-
-
 }
 
 // Function to calculate the total number of members per party
 
-function totalPerParty(party) {
+function totalPerParty(members, party) {
 
-    var membersPerParty = data.results[0].members;
+
+    var members;
 
     var totalArr = [];
 
-    for (var i = 0; i < membersPerParty.length; i++) {
+    for (var i = 0; i < members.length; i++) {
 
 
-        if (membersPerParty[i].party == party) {
+        if (members[i].party == party) {
 
-            totalArr.push(membersPerParty[i]);
+            totalArr.push(members[i]);
         }
     }
 
@@ -89,15 +143,16 @@ function totalPerParty(party) {
 
 
     return totalNumberParty;
+
 }
 
 // Function to calculate the average of vote per every party
 
-function averageParty(party) {
+function averageParty(members, party) {
 
-    var total = totalPerParty(party);
+    var total = totalPerParty(members, party);
 
-    var membersPerParty = data.results[0].members;
+    var members;
 
     var SumTotalVotes = [];
 
@@ -108,12 +163,12 @@ function averageParty(party) {
 
     //I Make an array to put the total number members per party
 
-    for (var i = 0; i < membersPerParty.length; i++) {
+    for (var i = 0; i < members.length; i++) {
 
 
-        if (membersPerParty[i].party == party) {
+        if (members[i].party == party) {
 
-            TotalMembersParty.push(membersPerParty[i]);
+            TotalMembersParty.push(members[i]);
         }
     }
 
@@ -138,9 +193,9 @@ function averageParty(party) {
 
 //Function to calculate the total per cert of parties
 
-function numberTotPct() {
+function numberTotPct(members) {
 
-    var members = data.results[0].members;
+    var members;
 
     var arr = [];
 
@@ -164,10 +219,10 @@ function numberTotPct() {
 
 //Functio to calculate bottom names to senate
 
-function bottomAttend() {
+function bottomAttend(members) {
 
 
-    var membersPerParty = data.results[0].members;
+    var membersPerParty = members;
 
     // I Make an array to put the total number of members per party
 
@@ -183,23 +238,29 @@ function bottomAttend() {
 
     //Take the last member in case to do the same on the actual 
 
+
+
     for (var i = total; i < membersPerParty.length; i++) {
 
         if (membersPerParty[i].missed_votes_pct == tenPctMissed[tenPctMissed.length - 1].missed_votes_pct) {
 
             tenPctMissed.push(membersPerParty[i]);
+
         }
+
     }
+
     return tenPctMissed;
 }
+
 //Function to calculate top names
-function topAttend() {
+function topAttend(members) {
 
 
     var arrTop = [];
 
 
-    var membersPerParty = data.results[0].members;
+    var membersPerParty = members;
 
 
     // I Make an array to put the total number of members per party
@@ -230,9 +291,9 @@ function topAttend() {
 }
 
 //Functio to calculate bottom names in party
-function bottomPart() {
+function bottomPart(members) {
 
-    var membersPerParty = data.results[0].members;
+    var membersPerParty = members;
 
     // I Make an array to put the total number of members per party
 
@@ -258,12 +319,12 @@ function bottomPart() {
     return tenPctParty;
 }
 
-function topPart() {
+function topPart(members) {
 
     var arrTop = [];
 
 
-    var membersPerParty = data.results[0].members;
+    var membersPerParty = members;
 
 
     // I Make an array to put the total number of members per party
@@ -295,135 +356,139 @@ function topPart() {
 }
 
 //Make the first table for senate glance. Firstly for the number of total members of every party
-function tableGlance() {
-
-    var tableRep = document.querySelector("#glance").rows;
-    var novaFilaRep = document.createElement("td");
-    novaFilaRep.innerHTML = statistics.numberRepublican;
-    tableRep[0].append(novaFilaRep);
-
-    var tableDem = document.querySelector("#glance").rows;
-    var novaFilaDem = document.createElement("td");
-    novaFilaDem.innerHTML = statistics.numberDemocrat;
-    tableDem[1].append(novaFilaDem);
-
-    var tableIn = document.querySelector("#glance").rows;
-    var novaFilaIn = document.createElement("td");
-    novaFilaIn.innerHTML = statistics.numberIndependent;
-    tableIn[2].append(novaFilaIn);
-
-    var tableTot = document.querySelector("#glance").rows;
-    var novaFilaTot = document.createElement("td");
-    novaFilaTot.innerHTML = statistics.numberTotal;
-    tableIn[3].append(novaFilaTot);
-
-}
+//function tableGlance(statistics) {
+//
+//    var tableRep = document.querySelector("#glance").rows;
+//    var novaFilaRep = document.createElement("td");
+//    novaFilaRep.innerHTML = statistics.numberRepublican;
+//    tableRep[0].append(novaFilaRep);
+//
+//    var tableDem = document.querySelector("#glance").rows;
+//    var novaFilaDem = document.createElement("td");
+//    novaFilaDem.innerHTML = statistics.numberDemocrat;
+//    tableDem[1].append(novaFilaDem);
+//
+//    var tableIn = document.querySelector("#glance").rows;
+//    var novaFilaIn = document.createElement("td");
+//    novaFilaIn.innerHTML = statistics.numberIndependent;
+//    tableIn[2].append(novaFilaIn);
+//
+//    var tableTot = document.querySelector("#glance").rows;
+//    var novaFilaTot = document.createElement("td");
+//    novaFilaTot.innerHTML = statistics.numberTotal;
+//    tableIn[3].append(novaFilaTot);
+//
+//}
 
 //Secondly the % of votes
 
-function TableGlancepct() {
-
-    var tableReppct = document.querySelector("#glance").rows;
-    var novaFilaReppct = document.createElement("td");
-    novaFilaReppct.innerHTML = statistics.percentRepublican + " %";
-    tableReppct[0].append(novaFilaReppct);
-
-    var tableDempct = document.querySelector("#glance").rows;
-    var novaFilaDempct = document.createElement("td");
-    novaFilaDempct.innerHTML = statistics.percentDemocrat + " %";
-    tableDempct[1].append(novaFilaDempct);
-
-    var tableInpct = document.querySelector("#glance").rows;
-    var novaFilaInpct = document.createElement("td");
-    //If we have a value NaN we want to imprime 0 no NaN
-    if (statistics.percentIndependent == "NaN" ) {
-       statistics.percentIndependent=0
-    }
-    novaFilaInpct.innerHTML =  statistics.percentIndependent  + " %"; 
-    tableInpct[2].append( novaFilaInpct);
-    
-    
-    var tabletotpct = document.querySelector("#glance").rows;
-    var novaFilatotpct = document.createElement("td");
-    novaFilatotpct.innerHTML = statistics.numberTotalPct+ " %";
-    tabletotpct[3].append(novaFilatotpct);
-
-
-
-}
-
-//I make de table about bottom 10% attendance
-
-function bottomAttendance() {
-
-    var tableBottomSenate = document.getElementById("bottom-attendance");
-    for (var i = 0; i < statistics.bottomAttendance.length; i++) {
-
-        var nomComplert = statistics.bottomAttendance[i].first_name + " " + (statistics.bottomAttendance[i].middle_name || "") + " " + statistics.bottomAttendance[i].last_name;
-
-        var linkCandidato = nomComplert.link(statistics.bottomAttendance.url);
-        var novaFila = document.createElement("tr");
-        novaFila.insertCell().innerHTML =linkCandidato;
-            novaFila.insertCell().innerHTML = statistics.bottomAttendance[i].missed_votes;
-        novaFila.insertCell().innerHTML = statistics.bottomAttendance[i].missed_votes_pct + " %";
-
-        tableBottomSenate.append(novaFila);
-    }
-
-}
-
-function topAttendance() {
-
-    var tableTopSenate = document.getElementById("top-attendance");
-    for (var i = 0; i < statistics.topAttendance.length; i++) {
-        
-        var nomComplert = statistics.topAttendance[i].first_name + " " + (statistics.topAttendance[i].middle_name || "") + " " + statistics.topAttendance[i].last_name;
-
-        var linkCandidato = nomComplert.link(statistics.topAttendance.url);
-        var novaFilaTopSen = document.createElement("tr");
-        novaFilaTopSen.insertCell().innerHTML = linkCandidato;
-        novaFilaTopSen.insertCell().innerHTML = statistics.topAttendance[i].missed_votes;
-        novaFilaTopSen.insertCell().innerHTML = statistics.topAttendance[i].missed_votes_pct + " %";
-
-        tableTopSenate.append(novaFilaTopSen);
-    }
-}
-
-
-function bottomPartyTable() {
-
-
-    var tableBottomParty = document.getElementById("bottom-party");
-    for (var i = 0; i < statistics.bottomParty.length; i++) {
-        
-        var nomComplert = statistics.bottomParty[i].first_name + " " + (statistics.bottomParty[i].middle_name || "") + " " + statistics.bottomParty[i].last_name;
-
-        var linkCandidato = nomComplert.link(statistics.bottomParty.url);
-        var novaFilaBottomParty = document.createElement("tr");
-        novaFilaBottomParty.insertCell().innerHTML = linkCandidato;
-        novaFilaBottomParty.insertCell().innerHTML = statistics.bottomParty[i].total_votes;
-        novaFilaBottomParty.insertCell().innerHTML = statistics.bottomParty[i].votes_with_party_pct + " %";
-
-        tableBottomParty.append(novaFilaBottomParty);
-    }
-
-}
-
-
-function topPartyTable() {
-
-    var tableTopParty = document.getElementById("top-party");
-    for (var i = 0; i < statistics.topParty.length; i++) {
-        
-        var nomComplert = statistics.topParty[i].first_name + " " + (statistics.topParty[i].middle_name || "") + " " + statistics.topParty[i].last_name;
-
-        var linkCandidato = nomComplert.link(statistics.topParty.url);
-        var novaFilaTopParty = document.createElement("tr");
-        novaFilaTopParty.insertCell().innerHTML = linkCandidato;
-        novaFilaTopParty.insertCell().innerHTML = statistics.topParty[i].total_votes;
-        novaFilaTopParty.insertCell().innerHTML = statistics.topParty[i].votes_with_party_pct + " %";
-
-        tableTopParty.append(novaFilaTopParty);
-    }
-
-}
+//function TableGlancepct(statistics) {
+//
+//    var tableReppct = document.querySelector("#glance").rows;
+//    var novaFilaReppct = document.createElement("td");
+//    novaFilaReppct.innerHTML = statistics.percentRepublican + " %";
+//    tableReppct[0].append(novaFilaReppct);
+//
+//    var tableDempct = document.querySelector("#glance").rows;
+//    var novaFilaDempct = document.createElement("td");
+//    novaFilaDempct.innerHTML = statistics.percentDemocrat + " %";
+//    tableDempct[1].append(novaFilaDempct);
+//
+//    var tableInpct = document.querySelector("#glance").rows;
+//    var novaFilaInpct = document.createElement("td");
+//    //If we have a value NaN we want to print 0 no NaN
+//    if (statistics.percentIndependent == "NaN") {
+//        statistics.percentIndependent = 0
+//    }
+//    novaFilaInpct.innerHTML = statistics.percentIndependent + " %";
+//    tableInpct[2].append(novaFilaInpct);
+//
+//
+//    var tabletotpct = document.querySelector("#glance").rows;
+//    var novaFilatotpct = document.createElement("td");
+//    novaFilatotpct.innerHTML = statistics.numberTotalPct + " %";
+//    tabletotpct[3].append(novaFilatotpct);
+//
+//
+//}
+//
+////I make the table about bottom 10% attendance
+//
+//function bottomAttendance(statistics) {
+//
+//    var statistics = statistics;
+//    var tableBottomSenate = document.getElementById("bottom-attendance");
+//    for (var i = 0; i < statistics.bottomAttendance.length; i++) {
+//
+//        var nomComplert = statistics.bottomAttendance[i].first_name + " " + (statistics.bottomAttendance[i].middle_name || "") + " " + statistics.bottomAttendance[i].last_name;
+//
+//        var linkCandidato = nomComplert.link(statistics.bottomAttendance.url);
+//        var novaFila = document.createElement("tr");
+//        novaFila.insertCell().innerHTML = linkCandidato;
+//        novaFila.insertCell().innerHTML = statistics.bottomAttendance[i].missed_votes;
+//        novaFila.insertCell().innerHTML = statistics.bottomAttendance[i].missed_votes_pct + " %";
+//
+//        tableBottomSenate.append(novaFila);
+//    }
+//
+//}
+//
+//function topAttendance(statistics) {
+//
+//    var statistics = statistics;
+//
+//    var tableTopSenate = document.getElementById("top-attendance");
+//    for (var i = 0; i < statistics.topAttendance.length; i++) {
+//
+//        var nomComplert = statistics.topAttendance[i].first_name + " " + (statistics.topAttendance[i].middle_name || "") + " " + statistics.topAttendance[i].last_name;
+//
+//        var linkCandidato = nomComplert.link(statistics.topAttendance.url);
+//        var novaFilaTopSen = document.createElement("tr");
+//        novaFilaTopSen.insertCell().innerHTML = linkCandidato;
+//        novaFilaTopSen.insertCell().innerHTML = statistics.topAttendance[i].missed_votes;
+//        novaFilaTopSen.insertCell().innerHTML = statistics.topAttendance[i].missed_votes_pct + " %";
+//
+//        tableTopSenate.append(novaFilaTopSen);
+//    }
+//}
+//
+//
+//function bottomPartyTable(statistics) {
+//
+//    var statistics = statistics;
+//    var tableBottomParty = document.getElementById("bottom-party");
+//    for (var i = 0; i < statistics.bottomParty.length; i++) {
+//
+//        var nomComplert = statistics.bottomParty[i].first_name + " " + (statistics.bottomParty[i].middle_name || "") + " " + statistics.bottomParty[i].last_name;
+//
+//        var linkCandidato = nomComplert.link(statistics.bottomParty.url);
+//        var novaFilaBottomParty = document.createElement("tr");
+//        novaFilaBottomParty.insertCell().innerHTML = linkCandidato;
+//        novaFilaBottomParty.insertCell().innerHTML = statistics.bottomParty[i].total_votes;
+//        novaFilaBottomParty.insertCell().innerHTML = statistics.bottomParty[i].votes_with_party_pct + " %";
+//
+//        tableBottomParty.append(novaFilaBottomParty);
+//    }
+//
+//}
+//
+//
+//function topPartyTable(statistics) {
+//
+//    var statistics = statistics;
+//
+//    var tableTopParty = document.getElementById("top-party");
+//    for (var i = 0; i < statistics.topParty.length; i++) {
+//
+//        var nomComplert = statistics.topParty[i].first_name + " " + (statistics.topParty[i].middle_name || "") + " " + statistics.topParty[i].last_name;
+//
+//        var linkCandidato = nomComplert.link(statistics.topParty.url);
+//        var novaFilaTopParty = document.createElement("tr");
+//        novaFilaTopParty.insertCell().innerHTML = linkCandidato;
+//        novaFilaTopParty.insertCell().innerHTML = statistics.topParty[i].total_votes;
+//        novaFilaTopParty.insertCell().innerHTML = statistics.topParty[i].votes_with_party_pct + " %";
+//
+//        tableTopParty.append(novaFilaTopParty);
+//    }
+//
+//}
