@@ -6,13 +6,13 @@
     <meta charset="UTF-8">
     <title>Senators page</title>
 
-    <!-- carregar llibreria versio 4.2.1 bootstrap sempre en el head-->
+    <!--  4.2.1 bootstrap library-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <!-- Preguntar per què aquestes llibreries-->
+    <!-- more bootstrap related librares-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-    <!--carreguem estils propis del doc CSS-->
+    <!--my own CSS-->
     <link rel="stylesheet" href="/estilos/style_page.css">
 </head>
 
@@ -33,15 +33,15 @@
 
         </div>
     </div>
-    <!--Creem navegació amb bootstrap-->
+    <!--nav bootstrap-->
     <nav class="navbar navbar-expand-sm menu">
         <!--item-->
         <div class="nav-item">
             <!--link-->
             <a class="nav-link" href="/home.html">Home</a></div>
-        <!--Creem el dropdown-->
+        <!-- dropdown bootstrap-->
         <div class="nav-item dropdown">
-            <!--Congress 113 va fix i fent click sortira el desplegable-->
+
             <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                 Congress 113
             </a>
@@ -54,7 +54,7 @@
         </div>
 
         <div class="nav-item dropdown">
-            <!--Congress 113 va fix i fent click sortira el desplegable-->
+
             <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                 Attendance
             </a>
@@ -67,7 +67,7 @@
         </div>
 
         <div class="nav-item dropdown">
-            <!--Congress 113 va fix i fent click sortira el desplegable-->
+
             <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                 Party Loyalty
             </a>
@@ -80,34 +80,28 @@
         </div>
 
     </nav>
-    <!--Table container-->
+
     <div class="container-senators">
         <h2>Senators</h2>
         <p>First convened in 1789, the composition and powers of the Senate are established in Article One of the U.S. Constitution. Each state is represented by two senators, regardless of population, who serve staggered six-year terms. The Senate has several exclusive powers not granted to the House, including consenting to treaties as a precondition to their ratification and consenting to or confirming appointments of Cabinet secretaries, federal judges, other federal executive officials, military officers, regulatory officials, ambassadors, and other federal uniformed officers, as well as trial of federal officials impeached by the House.</p>
 
 
-        <!--Elements pels filtres per ckeckbox-->
+        <!--Elements filters for the ckeckbox by party and the selct option for the states-->
         <div class="filters">
             <div class="checkbox-filter">
                 <span class="filtersByPart">Filter by Party:</span>
                 <label class="labels"> <input type="checkbox" id="miBotonRepublica" name="Republican" value="Republican">Republican</label>
                 <label class="labels"><input type="checkbox" id="miBotonDemocrat" name="Democrat" value="Democrat">Democrat</label>
-
                 <label class="labels"><input type="checkbox" id="miBotonInde" name="Independent" value="Independent">Independent</label>
-
             </div>
-
             <div class="select-filter">
                 <span>Filter by State:</span>
-
                 <select id="filter-state" class="filter">
                     <option value="">--All--</option>
                 </select>
-
             </div>
-
         </div>
-
+        <!--Loader in VUE. Meanwhile members table is equal to 0 the loader appears-->
         <div id="app">
             <div class="loader" v-if="members.length == 0">
 
@@ -123,10 +117,10 @@
                 </div>
             </div>
 
+            <!--If not, the table charge and the loaader disappear-->
+            <!--In all the web pages is always the same-->
 
             <table v-else class="table table-hover">
-
-                <!--Creem el thead de la taula, ho fem al html pq es un element no dinamin que sempre sera igual-->
 
                 <thead>
                     <tr>
@@ -138,8 +132,9 @@
                     </tr>
                 </thead>
 
-
                 <tbody id="allTable">
+
+                    <!--I Make the table with VUE and v-for -->
 
                     <tr v-for="item in members">
                         <td> <a v-bind:href=item.url> {{item.first_name}} {{item.middle_name}} {{item.last_name}}</a> </td>
@@ -148,29 +143,18 @@
                         <td>{{item.seniority}}</td>
                         <td>{{item.votes_with_party_pct}} %</td>
                     </tr>
-
-
                 </tbody>
-
-
             </table>
-
         </div>
-
     </div>
-
-
     <!--Add Vue and scripts-->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <!--<script src="pro-congress-113-senate.js"></script>-->
+
     <script src="main.js"></script>
 
-
     <footer>
-        <p> 2016 TGIF | All rights reserved </p>
+        <p class="content-footer"> 2016 TGIF | All rights reserved </p>
     </footer>
-
-
 </body>
 
 </html>

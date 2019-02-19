@@ -4,105 +4,95 @@
 <head>
 
     <link rel="stylesheet" href="/estilos/style_page.css">
-    <!-- carregar llibreria versio 4.2.1 bootstrap sempre en el head-->
+    <!--  4.2.1 bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <!-- Preguntar per què aquestes llibreries-->
+    <!--  4.2.1 bootstrap -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 
 </head>
 
-
 <body>
 
     <div id="app">
 
-    <div class=cont-superior>
-        <div class="logos">
-            <img class=logo_tgif src="/images/tgif_logo.png" alt="logo marca">
-            <!--logo bootstrap-->
+        <div class=cont-superior>
+            <div class="logos">
+                <img class=logo_tgif src="/images/tgif_logo.png" alt="logo marca">
+                <!--logo bootstrap-->
 
-            <h2 class="title-govern">Transparent Government in Fact</h2>
+                <h2 class="title-govern">Transparent Government in Fact</h2>
 
-        </div>
-        <div class="mail">
-            <img class="mailbox" src="/images/mail.png" alt="mail icon">
-            <span><a class="mailto" href="mailto:info@tgif.net">info@tgif.net</a></span>
+            </div>
+            <div class="mail">
+                <img class="mailbox" src="/images/mail.png" alt="mail icon">
+                <span><a class="mailto" href="mailto:info@tgif.net">info@tgif.net</a></span>
 
-        </div>
-    </div>
-    <!--Creem navegació amb bootstrap-->
-    <nav class="navbar navbar-expand-sm menu">
-        <!--item-->
-        <div class="nav-item">
-            <!--link-->
-            <a class="nav-link" href="/home.html">Home</a></div>
-        <!--Creem el dropdown-->
-        <div class="nav-item dropdown">
-            <!--Congress 113 va fix i fent click sortira el desplegable-->
-            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                Congress 113
-            </a>
-            <div class="dropdown-menu">
-
-                <a class="dropdown-item" href="/senate-data.html">Senate</a>
-
-                <a class="dropdown-item" href="/house-data.html">House</a>
             </div>
         </div>
+        <!--nav bootstrap-->
+        <nav class="navbar navbar-expand-sm menu">
+            <!--item-->
+            <div class="nav-item">
+                <!--link-->
+                <a class="nav-link" href="/home.html">Home</a></div>
+            <!-- dropdown-->
+            <div class="nav-item dropdown">
+            
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    Congress 113
+                </a>
+                <div class="dropdown-menu">
 
-        <div class="nav-item dropdown">
-            <!--Congress 113 va fix i fent click sortira el desplegable-->
-            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                Attendance
-            </a>
-            <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/senate-data.html">Senate</a>
 
-                <a class="dropdown-item" href="#">House</a>
-
-                <a class="dropdown-item" href="/senate-attendance-statistics.html">Senate</a>
+                    <a class="dropdown-item" href="/house-data.html">House</a>
+                </div>
             </div>
-        </div>
 
-        <div class="nav-item dropdown">
-            <!--Congress 113 va fix i fent click sortira el desplegable-->
-            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                Party Loyalty
-            </a>
-            <div class="dropdown-menu">
+            <div class="nav-item dropdown">
+              
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    Attendance
+                </a>
+                <div class="dropdown-menu">
 
-                <a class="dropdown-item" href="/house-party-loyalty-statistics.html">House</a>
+                    <a class="dropdown-item" href="#">House</a>
 
-                <a class="dropdown-item" href="/senate-party-loyalty-statistics.html">Senate</a>
+                    <a class="dropdown-item" href="/senate-attendance-statistics.html">Senate</a>
+                </div>
             </div>
-        </div>
 
-    </nav>
+            <div class="nav-item dropdown">
+             
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    Party Loyalty
+                </a>
+                <div class="dropdown-menu">
 
-    <header>
-        <div>
-        </div>
-    </header>
-    <!--Table container-->
+                    <a class="dropdown-item" href="/house-party-loyalty-statistics.html">House</a>
 
+                    <a class="dropdown-item" href="/senate-party-loyalty-statistics.html">Senate</a>
+                </div>
+            </div>
 
-    <div class="attendance">
-        <div class="text-attendance">
-            <h2>Attendance</h2>
-            <p>The Constitution specifies that a majority of members constitutes a quorum to do business in each house. Representatives and senators rarely force the presence of a quorum by demanding quorum calls; thus, in most cases, debates continue even if a majority is not present.</p>
+        </nav>
 
-            <p>The Senate uses roll-call votes; a clerk calls out the names of all the senators, each senator stating "aye" or "no" when his or her name is announced. The House reserves roll-call votes for the most formal matters, as a roll-call of all 435 representatives takes quite some time; normally, members vote by electronic device. In the case of a tie, the motion in question fails. In the Senate, the Vice President may (if present) cast the tiebreaking vote.</p>
+        <div class="attendance">
+            <div class="text-attendance">
+                <h2>Attendance</h2>
+                <p>The Constitution specifies that a majority of members constitutes a quorum to do business in each house. Representatives and senators rarely force the presence of a quorum by demanding quorum calls; thus, in most cases, debates continue even if a majority is not present.</p>
 
-        </div>
+                <p>The Senate uses roll-call votes; a clerk calls out the names of all the senators, each senator stating "aye" or "no" when his or her name is announced. The House reserves roll-call votes for the most formal matters, as a roll-call of all 435 representatives takes quite some time; normally, members vote by electronic device. In the case of a tie, the motion in question fails. In the Senate, the Vice President may (if present) cast the tiebreaking vote.</p>
 
-        <div class="cont-glance">
+            </div>
 
-            <h2>Senate at a glance</h2>
+            <div class="cont-glance">
 
-        
+                <h2>Senate at a glance</h2>
 
-                <div v-if="members.length == 0">
+                <div class="loader-glance" v-if="members.length == 0">
 
                     <div class="lds-roller">
                         <div></div>
@@ -161,7 +151,22 @@
             <div class="cont-bottom">
 
                 <h2>Least Engaged (Bottom 10% Attendance)</h2>
-                <table class="table table-hover">
+
+                <div class="loader-glance-top-bottom" v-if="members.length == 0">
+
+                    <div class="lds-roller">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+
+                <table v-else class="table table-hover">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -171,8 +176,8 @@
                     </thead>
                     <tbody>
 
-                        <tr v-for="item in statistics.bottomAttendance">  
-                            <td>{{item.first_name}} {{item.middle_name}} {{item.last_name}}</td>
+                        <tr v-for="item in statistics.topAttendance">
+                            <td> <a v-bind:href=item.url> {{item.first_name}} {{item.middle_name}} {{item.last_name}}</a> </td>
                             <td>{{item.missed_votes}}</td>
                             <td>{{item.missed_votes_pct}}%</td>
                         </tr>
@@ -184,7 +189,21 @@
             <div>
 
                 <h2>Most Engaged (Top 10% Attendance)</h2>
-                <table class="table table-hover">
+
+                <div class="loader-glance-top-bottom" v-if="members.length == 0">
+
+                    <div class="lds-roller">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+                <table v-else class="table table-hover">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -193,9 +212,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                    
-                     <tr v-for="item in statistics.topAttendance">  
-                            <td>{{item.first_name}} {{item.middle_name}} {{item.last_name}}</td>
+
+                        <tr v-for="item in statistics.bottomAttendance">
+                            <td> <a v-bind:href=item.url> {{item.first_name}} {{item.middle_name}} {{item.last_name}}</a> </td>
                             <td>{{item.missed_votes}}</td>
                             <td>{{item.missed_votes_pct}}%</td>
                         </tr>
@@ -207,10 +226,12 @@
 
     </div>
 
+    <footer>
+        <p class="content-footer"> 2016 TGIF | All rights reserved </p>
+    </footer>
+
     <!--Add vue library and scripts-->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <!--<script src="/pro%20-congress-113-house.js"></script>-->
     <script src="statistics.js"> </script>
 </body>
-
 </html>

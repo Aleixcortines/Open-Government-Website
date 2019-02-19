@@ -1,3 +1,4 @@
+//Here an if-else to charge the correct API (senate or house). If the path is senate charge senate if not charge house API url
 if (location.pathname == '/senate-attendance-statistics.html' || location.pathname == '/senate-party-loyalty-statistics.html')
 
 {
@@ -9,33 +10,31 @@ if (location.pathname == '/senate-attendance-statistics.html' || location.pathna
     start('https://api.propublica.org/congress/v1/113/house/members.json');
 
 }
-
+//Fetch function. As as parameter I put the url API
 function start(url) {
 
 
     fetch(url, {
-
+            // method GET to get information of the server pro publica
             method: 'GET',
-
+            //API Key from propublica
             headers: new Headers({
                 'X-API-Key': 'ErRMpHEa29IHVaRlGhaKWRijIvC2dNwrtuq7zUJm'
             })
-
+            //call the json
         }).then(function (response) {
             return response.json();
 
-
         })
+        //convert the json in data   
         .then(function (json) {
-            //            console.log(JSON.stringify(json));
-            // members taje the object members
-            objectVue.members = json.results[0].members;
 
+            //members object Vue take the value of json.results[0].members;
+            objectVue.members = json.results[0].members;
+            //members global variable to function of statistic object
             var members = json.results[0].members;
 
-
-
-            // I make the object statistics to senate-attendance
+            //  statistics object
 
             var statistics = {
 
@@ -64,49 +63,21 @@ function start(url) {
                 'topParty': topPart(members),
 
             };
-
+            //after to declare statistics object, statistics object vue take the value of statistics
             objectVue.statistics = statistics;
 
-            //Call the function about to make the table glance
-            //            tableGlance(statistics);
-
-            //Call the function about to make the the table 10pct bottom attendance
-
-            //            TableGlancepct(statistics);
-
-            //Rest of the functions
-
-            //            if (document.getElementById("bottom-attendance")) {
-            //                bottomAttendance(statistics);
-            //            }
-            //
-            //            if (document.getElementById("top-attendance")) {
-            //                topAttendance(statistics);
-            //            }
-            //
-            //            //Call the Table to bottom party
-            //            if (document.getElementById("bottom-party")) {
-            //                bottomPartyTable(statistics);
-            //            }
-            //
-            //            if (document.getElementById("top-party")) {
-            //                topPartyTable(statistics);
-            //            }
-            //        });
         })
 }
 
-
-
+//here the object vue
 var objectVue = new Vue({
     el: "#app",
+    //in data we put all the variables, in this case statistics and members (they took the values in fetch)
     data: {
         statistics: [],
-        members: []
+        members: [],
     }
-
 });
-
 
 
 //Function to calculate the total number of parties
@@ -184,7 +155,7 @@ function averageParty(members, party) {
         sum = sum + SumTotalVotes[i];
     }
 
-    var average = sum / total;
+    var average = (sum / total || 0);
 
     var averageRound = average.toFixed();
 
@@ -217,7 +188,7 @@ function numberTotPct(members) {
 
 }
 
-//Functio to calculate bottom names to senate
+//Function to calculate bottom attendance
 
 function bottomAttend(members) {
 
@@ -253,7 +224,8 @@ function bottomAttend(members) {
     return tenPctMissed;
 }
 
-//Function to calculate top names
+//Function to calculate top attendace
+
 function topAttend(members) {
 
 
@@ -290,7 +262,8 @@ function topAttend(members) {
     return tenPctMissed;
 }
 
-//Functio to calculate bottom names in party
+//Function to calculate bottom names in party
+
 function bottomPart(members) {
 
     var membersPerParty = members;
@@ -318,6 +291,8 @@ function bottomPart(members) {
     }
     return tenPctParty;
 }
+
+//function to calculate the top party names
 
 function topPart(members) {
 
@@ -354,141 +329,3 @@ function topPart(members) {
     return topParty;
 
 }
-
-//Make the first table for senate glance. Firstly for the number of total members of every party
-//function tableGlance(statistics) {
-//
-//    var tableRep = document.querySelector("#glance").rows;
-//    var novaFilaRep = document.createElement("td");
-//    novaFilaRep.innerHTML = statistics.numberRepublican;
-//    tableRep[0].append(novaFilaRep);
-//
-//    var tableDem = document.querySelector("#glance").rows;
-//    var novaFilaDem = document.createElement("td");
-//    novaFilaDem.innerHTML = statistics.numberDemocrat;
-//    tableDem[1].append(novaFilaDem);
-//
-//    var tableIn = document.querySelector("#glance").rows;
-//    var novaFilaIn = document.createElement("td");
-//    novaFilaIn.innerHTML = statistics.numberIndependent;
-//    tableIn[2].append(novaFilaIn);
-//
-//    var tableTot = document.querySelector("#glance").rows;
-//    var novaFilaTot = document.createElement("td");
-//    novaFilaTot.innerHTML = statistics.numberTotal;
-//    tableIn[3].append(novaFilaTot);
-//
-//}
-
-//Secondly the % of votes
-
-//function TableGlancepct(statistics) {
-//
-//    var tableReppct = document.querySelector("#glance").rows;
-//    var novaFilaReppct = document.createElement("td");
-//    novaFilaReppct.innerHTML = statistics.percentRepublican + " %";
-//    tableReppct[0].append(novaFilaReppct);
-//
-//    var tableDempct = document.querySelector("#glance").rows;
-//    var novaFilaDempct = document.createElement("td");
-//    novaFilaDempct.innerHTML = statistics.percentDemocrat + " %";
-//    tableDempct[1].append(novaFilaDempct);
-//
-//    var tableInpct = document.querySelector("#glance").rows;
-//    var novaFilaInpct = document.createElement("td");
-//    //If we have a value NaN we want to print 0 no NaN
-//    if (statistics.percentIndependent == "NaN") {
-//        statistics.percentIndependent = 0
-//    }
-//    novaFilaInpct.innerHTML = statistics.percentIndependent + " %";
-//    tableInpct[2].append(novaFilaInpct);
-//
-//
-//    var tabletotpct = document.querySelector("#glance").rows;
-//    var novaFilatotpct = document.createElement("td");
-//    novaFilatotpct.innerHTML = statistics.numberTotalPct + " %";
-//    tabletotpct[3].append(novaFilatotpct);
-//
-//
-//}
-//
-////I make the table about bottom 10% attendance
-//
-//function bottomAttendance(statistics) {
-//
-//    var statistics = statistics;
-//    var tableBottomSenate = document.getElementById("bottom-attendance");
-//    for (var i = 0; i < statistics.bottomAttendance.length; i++) {
-//
-//        var nomComplert = statistics.bottomAttendance[i].first_name + " " + (statistics.bottomAttendance[i].middle_name || "") + " " + statistics.bottomAttendance[i].last_name;
-//
-//        var linkCandidato = nomComplert.link(statistics.bottomAttendance.url);
-//        var novaFila = document.createElement("tr");
-//        novaFila.insertCell().innerHTML = linkCandidato;
-//        novaFila.insertCell().innerHTML = statistics.bottomAttendance[i].missed_votes;
-//        novaFila.insertCell().innerHTML = statistics.bottomAttendance[i].missed_votes_pct + " %";
-//
-//        tableBottomSenate.append(novaFila);
-//    }
-//
-//}
-//
-//function topAttendance(statistics) {
-//
-//    var statistics = statistics;
-//
-//    var tableTopSenate = document.getElementById("top-attendance");
-//    for (var i = 0; i < statistics.topAttendance.length; i++) {
-//
-//        var nomComplert = statistics.topAttendance[i].first_name + " " + (statistics.topAttendance[i].middle_name || "") + " " + statistics.topAttendance[i].last_name;
-//
-//        var linkCandidato = nomComplert.link(statistics.topAttendance.url);
-//        var novaFilaTopSen = document.createElement("tr");
-//        novaFilaTopSen.insertCell().innerHTML = linkCandidato;
-//        novaFilaTopSen.insertCell().innerHTML = statistics.topAttendance[i].missed_votes;
-//        novaFilaTopSen.insertCell().innerHTML = statistics.topAttendance[i].missed_votes_pct + " %";
-//
-//        tableTopSenate.append(novaFilaTopSen);
-//    }
-//}
-//
-//
-//function bottomPartyTable(statistics) {
-//
-//    var statistics = statistics;
-//    var tableBottomParty = document.getElementById("bottom-party");
-//    for (var i = 0; i < statistics.bottomParty.length; i++) {
-//
-//        var nomComplert = statistics.bottomParty[i].first_name + " " + (statistics.bottomParty[i].middle_name || "") + " " + statistics.bottomParty[i].last_name;
-//
-//        var linkCandidato = nomComplert.link(statistics.bottomParty.url);
-//        var novaFilaBottomParty = document.createElement("tr");
-//        novaFilaBottomParty.insertCell().innerHTML = linkCandidato;
-//        novaFilaBottomParty.insertCell().innerHTML = statistics.bottomParty[i].total_votes;
-//        novaFilaBottomParty.insertCell().innerHTML = statistics.bottomParty[i].votes_with_party_pct + " %";
-//
-//        tableBottomParty.append(novaFilaBottomParty);
-//    }
-//
-//}
-//
-//
-//function topPartyTable(statistics) {
-//
-//    var statistics = statistics;
-//
-//    var tableTopParty = document.getElementById("top-party");
-//    for (var i = 0; i < statistics.topParty.length; i++) {
-//
-//        var nomComplert = statistics.topParty[i].first_name + " " + (statistics.topParty[i].middle_name || "") + " " + statistics.topParty[i].last_name;
-//
-//        var linkCandidato = nomComplert.link(statistics.topParty.url);
-//        var novaFilaTopParty = document.createElement("tr");
-//        novaFilaTopParty.insertCell().innerHTML = linkCandidato;
-//        novaFilaTopParty.insertCell().innerHTML = statistics.topParty[i].total_votes;
-//        novaFilaTopParty.insertCell().innerHTML = statistics.topParty[i].votes_with_party_pct + " %";
-//
-//        tableTopParty.append(novaFilaTopParty);
-//    }
-//
-//}

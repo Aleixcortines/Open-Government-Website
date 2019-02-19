@@ -3,170 +3,220 @@
     <head>
 
     <link rel="stylesheet" href="/estilos/style_page.css">
-    <!-- carregar llibreria versio 4.2.1 bootstrap sempre en el head-->
+    <!--4.2.1 bootstrap-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <!-- Preguntar per què aquestes llibreries-->
+    <!--4.2.1 bootstrap-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 
 </head>
 
-
 <body>
 
-    <div class=cont-superior>
-        <div class="logos">
-            <img class=logo_tgif src="/images/tgif_logo.png" alt="logo marca">
-            <!--logo bootstrap-->
+    <div id="app">
 
-            <h2 class="title-govern">Transparent Government in Fact</h2>
+        <div class=cont-superior>
+            <div class="logos">
+                <img class=logo_tgif src="/images/tgif_logo.png" alt="logo marca">
+                <!--logo bootstrap-->
+                <h2 class="title-govern">Transparent Government in Fact</h2>
 
-        </div>
-        <div class="mail">
-            <img class="mailbox" src="/images/mail.png" alt="mail icon">
-            <span><a class="mailto" href="mailto:info@tgif.net">info@tgif.net</a></span>
+            </div>
+            <div class="mail">
+                <img class="mailbox" src="/images/mail.png" alt="mail icon">
+                <span><a class="mailto" href="mailto:info@tgif.net">info@tgif.net</a></span>
 
-        </div>
-    </div>
-    <!--Creem navegació amb bootstrap-->
-    <nav class="navbar navbar-expand-sm menu">
-        <!--item-->
-        <div class="nav-item">
-            <!--link-->
-            <a class="nav-link" href="/home.html">Home</a></div>
-        <!--Creem el dropdown-->
-        <div class="nav-item dropdown">
-            <!--Congress 113 va fix i fent click sortira el desplegable-->
-            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                Congress 113
-            </a>
-            <div class="dropdown-menu">
-
-                <a class="dropdown-item" href="/senate-data.html">Senate</a>
-
-                <a class="dropdown-item" href="/house-data.html">House</a>
             </div>
         </div>
+        <!--nav bootstrap-->
+        <nav class="navbar navbar-expand-sm menu">
+            <!--item-->
+            <div class="nav-item">
+                <!--link-->
+                <a class="nav-link" href="/home.html">Home</a></div>
+            <!--dropdown-->
+            <div class="nav-item dropdown">
 
-        <div class="nav-item dropdown">
-            <!--Congress 113 va fix i fent click sortira el desplegable-->
-            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                Attendance
-            </a>
-            <div class="dropdown-menu">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    Congress 113
+                </a>
+                <div class="dropdown-menu">
 
-                <a class="dropdown-item" href="/house-attendance-statistics.html">House</a>
+                    <a class="dropdown-item" href="/senate-data.html">Senate</a>
 
-                <a class="dropdown-item" href="/senate-attendance-statistics.html">Senate</a>
+                    <a class="dropdown-item" href="/house-data.html">House</a>
+                </div>
+            </div>
+
+            <div class="nav-item dropdown">
+
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    Attendance
+                </a>
+                <div class="dropdown-menu">
+
+                    <a class="dropdown-item" href="/house-attendance-statistics.html">House</a>
+
+                    <a class="dropdown-item" href="/senate-attendance-statistics.html">Senate</a>
+                </div>
+            </div>
+
+            <div class="nav-item dropdown">
+               
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    Party Loyalty
+                </a>
+                <div class="dropdown-menu">
+
+                    <a class="dropdown-item" href="#">House</a>
+
+                    <a class="dropdown-item" href="/senate-party-loyalty-statistics.html">Senate</a>
+                </div>
+            </div>
+
+        </nav>
+        <header>
+            <div>
+            </div>
+        </header>
+       
+        <div class="attendance">
+            <div class="text-attendance">
+                <h2>Party Loyalty</h2>
+                <p>Those who consider themselves to be strong partisans, strong Democrats and strong Republicans respectively, tend to be the most faithful in voting for their party's nominee for office and legislation that backs their party's agenda. </p>
+
+            </div>
+
+            <div class="cont-glance">
+
+                <h2>House at a glance</h2>
+
+                <div class="loader-glance" v-if="members.length == 0">
+
+                    <div class="lds-roller">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+
+                <table v-else class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Party</th>
+                            <th>Number of Reps</th>
+                            <th>% Voted with Prty</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="glance">
+
+                        <tr>
+                            <td>Republican</td>
+                            <td>{{statistics.numberRepublican}}</td>
+                            <td>{{statistics.percentRepublican}}%</td>
+                        </tr>
+                        <tr>
+                            <td>Democrat</td>
+                            <td>{{statistics.numberDemocrat}}</td>
+                            <td>{{statistics.percentDemocrat}}%</td>
+                        </tr>
+                        <tr>
+                            <td>Independent</td>
+                            <td>{{statistics.numberIndependent}}</td>
+                            <td>{{statistics.percentIndependent || 0}}%</td>
+                        </tr>
+                        <tr>
+                            <td>Total</td>
+                            <td>{{statistics.numberTotal}}</td>
+                            <td>{{statistics.numberTotalPct}}%</td>
+
+                        </tr>
+
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="cont-top-bottom">
+
+            <div class="cont-bottom">
+
+                <h2>Least Loyal (Bottom 10% of Party)</h2>
+
+                <div class="loader-glance-top-bottom" v-if="members.length == 0">
+
+                    <div class="lds-roller">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+                <table v-else class="table table-hover">
+
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Number of Party Votes</th>
+                            <th>% Party Votes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr v-for="item in statistics.bottomParty">
+                            <td> <a v-bind:href=item.url> {{item.first_name}} {{item.middle_name}} {{item.last_name}}</a> </td>
+                            <td>{{Math.round(item.total_votes*item.votes_with_party_pct/100)}}</td>
+                            <td>{{item.votes_with_party_pct}}%</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div>
+
+                <h2>Most Loyal (Top 10% of Party)</h2>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Number of Party Votes</th>
+                            <th>% Party Votes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr v-for="item in statistics.topParty">
+                            <td> <a v-bind:href=item.url> {{item.first_name}} {{item.middle_name}} {{item.last_name}}</a> </td>
+                            <td>{{Math.round(item.total_votes*item.votes_with_party_pct/100)}}</td>
+                            <td>{{item.votes_with_party_pct}}%</td>
+                        </tr>
+
+                    </tbody>
+                </table>
             </div>
         </div>
-
-        <div class="nav-item dropdown">
-            <!--Congress 113 va fix i fent click sortira el desplegable-->
-            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                Party Loyalty
-            </a>
-            <div class="dropdown-menu">
-
-                <a class="dropdown-item" href="#">House</a>
-
-                <a class="dropdown-item" href="/senate-party-loyalty-statistics.html">Senate</a>
-            </div>
-        </div>
-
-    </nav>
-    <header>
-        <div>
-        </div>
-    </header>
-    <!--Table container-->
-
-
-    <div class="attendance">
-        <div class="text-attendance">
-            <h2>Party Loyalty</h2>
-            <p>Those who consider themselves to be strong partisans, strong Democrats and strong Republicans respectively, tend to be the most faithful in voting for their party's nominee for office and legislation that backs their party's agenda. </p>
-
-        </div>
-
-        <div class="cont-glance">
-
-            <h2>House at a glance</h2>
-
-
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Party</th>
-                        <th>Number of Reps</th>
-                        <th>% Voted with Prty</th>
-                    </tr>
-                </thead>
-
-                <tbody id="glance">
-
-                    <tr>
-                        <td>Republican</td>
-                    </tr>
-                    <tr>
-                        <td>Democrat</td>
-                    </tr>
-                    <tr>
-                        <td>Independent</td>
-                    </tr>
-                    <tr>
-                        <td>Total</td>
-
-                    </tr>
-
-
-                </tbody>
-            </table>
-        </div>
-
     </div>
-
-    <div class="cont-top-bottom">
-
-        <div class="cont-bottom">
-
-            <h2>Least Loyal (Bottom 10% of Party)</h2>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Number of Party Votes</th>
-                        <th>% Party Votes</th>
-                    </tr>
-                </thead>
-                <tbody id="bottom-party">
-
-                </tbody>
-            </table>
-        </div>
-
-        <div>
-
-            <h2>Most Loyal (Top 10% of Party)</h2>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Number of Party Votes</th>
-                        <th>% Party Votes</th>
-                    </tr>
-                </thead>
-                <tbody id="top-party">
-
-                </tbody>
-            </table>
-        </div>
-    </div>
+    <footer>
+        <p class="content-footer"> 2016 TGIF | All rights reserved </p>
+    </footer>
 
 
-
-    <!--<script src="/pro%20-congress-113-house.js"></script>-->
+    <!--Add vue library and scripts-->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="statistics.js"> </script>
 </body>
 </html>

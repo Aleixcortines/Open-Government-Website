@@ -1,4 +1,4 @@
-//global variable about all members
+//I declare the global variable about all members
 
 var members;
 
@@ -30,18 +30,18 @@ function start(url) {
         }).then(function (response) {
             return response.json();
 
-
         })
         .then(function (json) {
-            console.log(JSON.stringify(json));
-            // members taje the object members
+
+            // members take the object members
             members = json.results[0].members;
-            //object vue
+            //object vue members take the value of members variable
             objectVueTable.members = members;
 
-
+            //Here all the calls to functions
             dropDownStates(members);
             filters(members);
+
 
         }).catch(function (error) {
             console.log("Request failed: " + error.message);
@@ -50,7 +50,7 @@ function start(url) {
 
 }
 
-// Vue object 
+// Vue object . In data I declarethe variable members that took the value of json.results[0].members in fecth
 
 var objectVueTable = new Vue({
     el: "#app",
@@ -60,11 +60,11 @@ var objectVueTable = new Vue({
 
 });
 
-
-// Anem a crear select dropdown per estats. Abans ordenem i treiem estat repetits del Array members creant nou array
+//This function create a dropdown for states. After that I  erase the repeat states and then sort the array. Finally I create a new array (statesUniqs)
 
 function dropDownStates(members) {
 
+     
     var noDupl = [];
 
     for (var i = 0; i < members.length; i++) {
@@ -74,15 +74,12 @@ function dropDownStates(members) {
             noDupl.push(members[i].state);
         }
     }
-
+    
     var statesUniqs = noDupl.sort();
-
-    //Treiem els elements repetits del array
-
 
     console.log(statesUniqs);
 
-    //Creem automaticament les opcions del filtre per estat
+    //I make the every option with a for loop
 
     var options = document.getElementById("filter-state");
 
@@ -93,6 +90,8 @@ function dropDownStates(members) {
         var estado = statesUniqs[i];
 
         novaOption.append(estado);
+        
+        //with setAttribute I put an attribute  value = estado 
 
         novaOption.setAttribute("value", estado);
 
@@ -101,8 +100,7 @@ function dropDownStates(members) {
     }
 }
 
-// Creem un event listener on al fer click a cada dels 3 botons i el dropdown select cridará a la funcio filters
-
+//I crreate a event listener when the user click the 3 butttons or the dropdown selct will call the functions with the name filters
 
 document.getElementById("miBotonRepublica").addEventListener("click", filters);
 
@@ -112,7 +110,7 @@ document.getElementById("miBotonInde").addEventListener("click", filters);
 
 document.getElementById('filter-state').addEventListener('change', filters);
 
-//Creem la funcio filter per realitzar tots els tipus de filtre
+//Function filters
 
 function filters(members) {
 
@@ -148,5 +146,6 @@ function filters(members) {
         } else {
             table.rows[i].style.display = "none";
         }
+
     }
 }
