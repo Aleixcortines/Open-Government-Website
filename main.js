@@ -55,7 +55,24 @@ function start(url) {
 var objectVueTable = new Vue({
     el: "#app",
     data: {
-        members: []
+        members: [],
+        read: "Read More",
+
+    },
+    methods: {
+
+        appearRead() {
+
+            if (this.read == "Read More") {
+
+                this.read = "Read Less"
+            } else if (this.read == "Read Less") {
+                
+                this.read = "Read More"
+                  
+            }     
+        }
+
     }
 
 });
@@ -64,7 +81,7 @@ var objectVueTable = new Vue({
 
 function dropDownStates(members) {
 
-     
+
     var noDupl = [];
 
     for (var i = 0; i < members.length; i++) {
@@ -74,7 +91,7 @@ function dropDownStates(members) {
             noDupl.push(members[i].state);
         }
     }
-    
+
     var statesUniqs = noDupl.sort();
 
     console.log(statesUniqs);
@@ -90,7 +107,7 @@ function dropDownStates(members) {
         var estado = statesUniqs[i];
 
         novaOption.append(estado);
-        
+
         //with setAttribute I put an attribute  value = estado 
 
         novaOption.setAttribute("value", estado);

@@ -106,7 +106,7 @@
         </div>
         <!--loader-->
         <div id="app">
-            <div class="loader" v-if="members.length == 0">
+            <div class="loader"  v-if="members.length == 0">
 
                 <div class="lds-roller">
                     <div></div>
@@ -118,6 +118,7 @@
                     <div></div>
                     <div></div>
                 </div>
+                <h4>Loading members...</h4>
             </div>
 
             <table v-else class="table table-hover">
