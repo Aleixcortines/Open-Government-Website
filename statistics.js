@@ -1,5 +1,6 @@
+
 //Here an if-else to charge the correct API (senate or house). If the path is senate charge senate if not charge house API url
-if (location.pathname == '/senate-attendance-statistics.html' || location.pathname == '/senate-party-loyalty-statistics.html')
+if (location.pathname == '/senate-data.html' || location.pathname == '/senate-attendance-statistics.html' || location.pathname == '/senate-party-loyalty-statistics.html')
 
 {
     start('https://api.propublica.org/congress/v1/113/senate/members.json');
@@ -29,10 +30,12 @@ function start(url) {
         //convert the json in data   
         .then(function (json) {
 
-            //members object Vue take the value of json.results[0].members;
-            objectVue.members = json.results[0].members;
             //members global variable to function of statistic object
             var members = json.results[0].members;
+
+            //members object Vue take the value of json.results[0].members;
+            objectVue.members = json.results[0].members;
+
 
             //  statistics object
 
@@ -66,6 +69,10 @@ function start(url) {
             //after to declare statistics object, statistics object vue take the value of statistics
             objectVue.statistics = statistics;
 
+            //Here all the calls to functions
+            dropDownStates(members);
+            filters(members);
+
         })
 }
 
@@ -76,8 +83,118 @@ var objectVue = new Vue({
     data: {
         statistics: [],
         members: [],
+        read: "Read More",
+    },
+    methods: {
+
+        appearRead() {
+
+            if (this.read == "Read More") {
+
+                this.read = "Read Less"
+            } else if (this.read == "Read Less") {
+
+                this.read = "Read More"
+
+            }
+        }
+
     }
 });
+
+
+
+
+//I crreate a event listener when the user click the 3 butttons or the dropdown selct will call the functions with the name filters
+
+document.getElementById("miBotonRepublica").addEventListener("click", filters);
+
+document.getElementById("miBotonDemocrat").addEventListener("click", filters);
+
+document.getElementById("miBotonInde").addEventListener("click", filters);
+
+document.getElementById('filter-state').addEventListener('change', filters);
+
+//This function create a dropdown for states. After that I  erase the repeat states and then sort the array. Finally I create a new array (statesUniqs)
+
+function dropDownStates(members) {
+
+
+    var noDupl = [];
+
+    for (var i = 0; i < members.length; i++) {
+
+        if (!noDupl.includes(members[i].state)) {
+
+            noDupl.push(members[i].state);
+        }
+    }
+
+    var statesUniqs = noDupl.sort();
+
+    console.log(statesUniqs);
+
+    //I make the every option with a for loop
+
+    var options = document.getElementById("filter-state");
+
+    for (var i = 0; i < statesUniqs.length; i++) {
+
+        var novaOption = document.createElement("option");
+
+        var estado = statesUniqs[i];
+
+        novaOption.append(estado);
+
+        //with setAttribute I put an attribute  value = estado 
+
+        novaOption.setAttribute("value", estado);
+
+        options.append(novaOption);
+
+    }
+}
+
+
+//Function filters
+
+function filters(members) {
+
+
+    var table = document.getElementById("allTable");
+    //Creem un array buit on enmagatzemarem el valor o valors que ens interessa del checkbox 
+    var partyArray = [];
+
+    var valor = document.querySelector("#filter-state").value;
+    //Creem tres condicionals dient que si el valor que ens interessa (R,D,I)  esta check el posi dins el array partyArray fent metode push.
+
+    if (document.getElementById('miBotonRepublica').checked) {
+        partyArray.push("R");
+    }
+    if (document.getElementById('miBotonDemocrat').checked) {
+        partyArray.push("D");
+    }
+    if (document.getElementById('miBotonInde').checked) {
+        partyArray.push("I");
+    }
+
+    //Creem un bucle per recorre tota la taula i accedir als valors que ens interessen 
+
+    for (var i = 0; i < table.rows.length; i++) {
+        //creem variable que captura el valor de la fila que ens interessa. Accedim a cada fila. el fill posició 1 agafaem el seu text.
+        var partyCell = table.rows[i].children[1].innerText;
+        //el mateix per accedir a dada dels estats
+        var stateCell = table.rows[i].children[2].innerText;
+        //Creem un condicional per quan usuari trii check box combinat amb dropdown select
+        if ((partyArray.includes(partyCell) || partyArray.length == 0) && (valor == stateCell || valor == "")) {
+            //mostra files o no amb propietat css display
+            table.rows[i].style.display = "table-row";
+        } else {
+            table.rows[i].style.display = "none";
+        }
+
+    }
+}
 
 
 //Function to calculate the total number of parties
