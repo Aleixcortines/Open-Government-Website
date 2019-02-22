@@ -86,7 +86,7 @@
             <p>Each U.S. state is represented in the House in proportion to its population as measured in the census, but every state is entitled to at least one representative. </p>
 
             <!--filters ckeckbox and select-->
-            <div class="filters">
+            <div class="filters mb-4 mt-3">
                 <div class="checkbox-filter">
                     <span class="filtersByPart">Filter by Party:</span>
                     <label class="labels"> <input type="checkbox" id="miBotonRepublica" name="Republican" value="Republican">Republican</label>
@@ -97,7 +97,7 @@
                 </div>
 
                 <div class="select-filter">
-                    <span>Filter by State:</span>
+                    <span class="mr-3">Filter by State:</span>
 
                     <select id="filter-state" class="filter">
                         <option value="">--All--</option>
@@ -107,7 +107,7 @@
 
             </div>
             <!--loader-->
-            <div id="app">
+            
                 <div class="loader" v-if="members.length == 0">
 
                     <div class="lds-roller">
@@ -143,6 +143,9 @@
                             <td>{{item.seniority}}</td>
                             <td>{{item.votes_with_party_pct}} %</td>
                         </tr>
+                        <tr id="noresult" rowspan="5">
+                            <td>Any member with this criteria. Try to change State or Party to solve it.</td>
+                        </tr>
                     </tbody>
 
                 </table>
@@ -150,7 +153,7 @@
             </div>
 
         </div>
-    </div>
+    
 
     <footer>
         <p class="content-footer text-center"> 2016 TGIF | All rights reserved </p>

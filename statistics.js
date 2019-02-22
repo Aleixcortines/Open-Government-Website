@@ -180,6 +180,8 @@ function filters(members) {
 
     //Creem un bucle per recorre tota la taula i accedir als valors que ens interessen 
 
+    var isEmpty=true;
+    
     for (var i = 0; i < table.rows.length; i++) {
         //creem variable que captura el valor de la fila que ens interessa. Accedim a cada fila. el fill posició 1 agafaem el seu text.
         var partyCell = table.rows[i].children[1].innerText;
@@ -189,11 +191,15 @@ function filters(members) {
         if ((partyArray.includes(partyCell) || partyArray.length == 0) && (valor == stateCell || valor == "")) {
             //mostra files o no amb propietat css display
             table.rows[i].style.display = "table-row";
+            isEmpty=false 
+            document.getElementById("noresult").style.visibility="hidden";
         } else {
             table.rows[i].style.display = "none";
         }
 
     }
+    
+    
 }
 
 

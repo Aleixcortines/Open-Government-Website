@@ -6,14 +6,14 @@
     <meta charset="UTF-8">
     <title>Senators page</title>
 
-    <!--  4.2.1 bootstrap library-->
+    <!--add my style in CSS-->
+    <link rel="stylesheet" href="/estilos/style_page.css">
+    <!-- add bootstrap library 4.2.1, always in the head-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <!-- more bootstrap related librares-->
+    <!-- more libraries realted to bootstrap-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-    <!--my own CSS-->
-    <link rel="stylesheet" href="/estilos/style_page.css">
 </head>
 
 <body id="senate-dat">
@@ -89,7 +89,7 @@
 
 
             <!--Elements filters for the ckeckbox by party and the selct option for the states-->
-            <div class="filters">
+            <div class="filters mb-4 mt-3">
                 <div class="checkbox-filter">
                     <span class="filtersByPart">Filter by Party:</span>
                     <label class="labels"> <input type="checkbox" id="miBotonRepublica" name="Republican" value="Republican">Republican</label>
@@ -97,7 +97,7 @@
                     <label class="labels"><input type="checkbox" id="miBotonInde" name="Independent" value="Independent">Independent</label>
                 </div>
                 <div class="select-filter">
-                    <span>Filter by State:</span>
+                    <span class="mr-3">Filter by State:</span>
                     <select id="filter-state" class="filter">
                         <option value="">--All--</option>
                     </select>
